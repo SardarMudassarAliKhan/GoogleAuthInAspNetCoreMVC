@@ -4,13 +4,12 @@ using System.Security.Claims;
 using GoogleAuthInAspNetCoreMVC.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using GoogleAuthInAspNetCoreMVC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GoogleAuthInAspNetCoreMVCContextConnection") ?? throw new InvalidOperationException("Connection string 'GoogleAuthInAspNetCoreMVCContextConnection' not found.");
 
 builder.Services.AddDbContext<GoogleAuthInAspNetCoreMVCContext>(options => options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<GoogleAuthInAspNetCoreMVCContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -20,6 +19,13 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
 }
+
+// Add Identity in IOC Container
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+               options.SignIn.RequireConfirmedAccount= false    
+             )
+            .AddEntityFrameworkStores<GoogleAuthInAspNetCoreMVCContext>()
+            .AddDefaultTokenProviders();
 
 // Configure Google authentication
 builder.Services.AddAuthentication(options =>

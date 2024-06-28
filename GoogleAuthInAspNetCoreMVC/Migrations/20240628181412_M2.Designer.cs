@@ -4,6 +4,7 @@ using GoogleAuthInAspNetCoreMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoogleAuthInAspNetCoreMVC.Migrations
 {
     [DbContext(typeof(GoogleAuthInAspNetCoreMVCContext))]
-    partial class GoogleAuthInAspNetCoreMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20240628181412_M2")]
+    partial class M2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
